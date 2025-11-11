@@ -62,41 +62,77 @@ a {
 
 /* Why Join */
 /* Why Join */
+
+
 .why-section {
-  padding: 3rem 1rem 1.6rem;
+    /* Adjusted padding for more vertical space on the section */
+    padding: 5rem 1rem;
+    background-color: #f8f9fa; /* A very light background to make the cards pop */
 }
+
 .card-feature {
-  border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(20, 30, 40, 0.04);
-  padding: 1.5rem; /* Increased padding slightly for vertical alignment */
-  background: #fff;
-  /* New: Ensure card content aligns vertically and centrally */
-  display: flex;
-  flex-direction: column; 
-  align-items: center; /* Center content horizontally */
-  text-align: center; /* Center text within the card */
+    /* MIGRATED STYLES from .card-client */
+    background: #C2E2FA; /* Dark background from the example card */
+    border: 4px solid var(--brand-light-border); /* Thick light border */
+    box-shadow: 0 8px 24px rgba(20, 30, 40, 0.1); /* Enhanced shadow */
+    border-radius: 14px;
+    padding: 1.5rem;
+    
+    /* Ensure content is readable against the dark background */
+    color: #fff; 
+    
+    /* Layout control */
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    text-align: center; 
+    
+    /* MIGRATED HOVER EFFECT */
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Added cubic-bezier for smoother transition */
+    cursor: pointer;
+}
+
+.card-feature:hover {
+    transform: translateY(-10px); /* The floating effect! */
+    box-shadow: 0 15px 30px rgba(20, 30, 40, 0.15); /* Slightly stronger shadow on hover */
+}
+
+/* Overriding Bootstrap text colors inside the dark card for readability */
+.card-feature h5 {
+    color: black; /* Make the title white */
+    font-weight: 600;
+}
+.card-feature .text-muted.small {
+    color: black;
+}
+
+
+/* Styling for the icon box to stand out on the dark background */
+.icon-box {
+    width: 60px; 
+    height: 60px;
+    border-radius: 50%; /* Changed to circular for the user-picture look */
+    background: #fff; /* White background for high contrast */
+    border: 3px solid var(--brand-light-border); /* Border matching the card */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    
+    /* The emoji/icon inside will now be readable on the white background */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
 }
 
 /* NEW: Style for the inner content wrapper to manage gap */
 .card-content-wrapper {
-    /* Ensures the text block below the icon has some margin */
-    margin-top: 1rem;
+    margin-top: 1.25rem;
 }
 
-.icon-box {
-  width: 56px; /* Slightly larger icon box */
-  height: 56px;
-  border-radius: 12px;
-  background: #e7f1ff; /* Lighter blue background for the box */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8rem; /* Larger icon size */
-  color: var(--brand); /* Use the main brand color for the icon */
-}
+
+
 
 /* What You'll Do */
-.do-section {
+/* .do-section {
   background: var(--hero-bg);
   padding: 2.5rem 1rem;
   border-top: 1px solid rgba(0, 0, 0, 0.03);
@@ -121,7 +157,78 @@ a {
   align-items: center;
   display: flex;
   margin: 12px 0;
+} */
+
+.do-section {
+  background: var(--hero-bg);
+  padding: 4.5rem 1rem; /* Increased padding slightly for better spacing */
+  border-top: 1px solid rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
 }
+
+/* Ensure the image is block level and has space */
+.hero-img {
+    /* display: block; */
+    border-radius: 12px; /* Adding some rounded corners to the image */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* A soft shadow (used as base for animation) */
+    width:60%;
+}
+
+/* The rest of the section styles */
+.do-illustr {
+  width: 100%;
+  /* max-width: 320px; */
+}
+.do-features .list-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--brand);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+}
+.do-features .list-item {
+  align-items: center;
+  display: flex;
+  margin: 12px 0;
+}
+
+/*
+ * -------------------------------------------------------------
+ * 3. IMAGE ANIMATION (image_animation.css)
+ * This uses the aggressive scale/glow to ensure visibility.
+ * -------------------------------------------------------------
+ */
+@keyframes breath {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Default soft shadow */
+  }
+  50% {
+    transform: scale(1.05); /* Scales up 5% to make it visible */
+    /* Strong shadow using the brand color for a noticeable pulse */
+    box-shadow: 
+        0 15px 40px rgba(44, 181, 160, 0.4), /* Branded glow effect */
+        0 10px 25px rgba(0, 0, 0, 0.15); /* Darker shadow for depth */
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Return to default soft shadow */
+  }
+}
+
+.animate-breathe {
+  /* Apply the animation: 4 seconds duration, repeats forever */
+  animation: breath 4s ease-in-out infinite;
+  
+  /* Ensure smooth rendering */
+  will-change: transform, box-shadow;
+}
+
+
 /* grow */
 .grow-limits-section {
             padding-top: 5rem;
@@ -466,91 +573,71 @@ a {
   }
 }
 
-/* Footer */
-:root {
-    /* Using a deep blue color for the footer background as seen in the image */
-    --footer-bg: #003366; 
-    /* Primary color for the subscription button, assuming a blue accent */
-    --primary: #007bff; 
-    /* Color for links, a lighter blue/cyan for contrast */
-    --link-color: #cfe8ff; 
+
+/* women section */
+
+
+.image-card-effect {
+    position: relative;
+    max-width: 250px; /* Recommended: Set a max size for better control */
+    width: 100%; 
+    background-color: #f8fafc; /* Helps conceal the pseudo-elements when not glowing */
+    border-radius: 8px; 
+    cursor: pointer;
+    margin: 0 auto; 
+    z-index: 1; /* Give the container a z-index so pseudo-elements respect its stacking context */
 }
 
-.site-footer {
-    /* Use the deep blue background */
-    background: var(--footer-bg); 
-    /* White text color */
-    color: #fff; 
-    /* Generous vertical padding */
-    padding: 3rem 1rem; 
+.image-card-effect img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px; 
+    /* Ensure the image doesn't cover the entire border area, 
+       or use padding/margin if the background color isn't enough */
+    position: relative; 
+    z-index: 2; /* Image is on top */
 }
 
-/* Style for all links in the footer */
-.site-footer a {
-    color: var(--link-color);
-    text-decoration: none; /* Remove underline */
+.image-card-effect::before {
+    content: '';
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Use this for reliable centering */
+    
+    /* Make the border size explicit, slightly larger than the container */
+    width: calc(100% + 10px); 
+    height: calc(100% + 10px); 
+
+    border-radius: 10px;
+    background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );
+    z-index: -10;
+    pointer-events: none;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.site-footer a:hover {
-    color: #fff; /* Lighter color on hover */
+.image-card-effect::after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100% );
+    transform: translate3d(0, 0, 0) scale(0.98);
+    filter: blur(15px);
+    border-radius: 8px;
+    transition: all 0.6s ease;
 }
 
-/* Style for the list items (Company and Support links) */
-.site-footer ul {
-    padding-left: 0;
-    margin-bottom: 0;
+/* Hover effects */
+.image-card-effect:hover::after {
+    filter: blur(25px);
 }
 
-.site-footer ul li {
-    margin-bottom: 0.5rem;
+.image-card-effect:hover::before {
+    /* Use the same centering technique */
+    transform: translate(-50%, -50%) rotate(-90deg) scaleX(1.1) scaleY(0.9); 
 }
 
-.site-footer h6 {
-    /* Make headings bold and slightly larger than links */
-    font-weight: 600; 
-    margin-bottom: 1rem;
-    color: #fff; /* Ensure headings are white */
-}
 
-/* Style for the social media icons */
-.social-icon {
-    width: 36px;
-    height: 36px;
-    /* Circular shape for the icons, as seen in the image */
-    border-radius: 50%; 
-    /* Transparent white background */
-    background: rgba(255, 255, 255, 0.1); 
-    /* Center the icon */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    color: #fff; /* White icon color */
-    transition: background 0.3s ease;
-}
-
-.social-icon:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* Adjust the styling for the email subscription input and button */
-.input-group .form-control {
-    /* Set the input background to the same dark blue, but slightly lighter/transparent */
-    background-color: rgba(255, 255, 255, 0.1); 
-    border-color: rgba(255, 255, 255, 0.2);
-    color: #fff;
-}
-
-.input-group .form-control::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.input-group .btn-primary {
-    /* Use the primary color for the button */
-    background-color: var(--primary); 
-    border-color: var(--primary);
-    color: #fff;
-    /* Make the button flat */
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
